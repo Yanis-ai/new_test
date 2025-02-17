@@ -1,5 +1,5 @@
 benchmark_db_master_password = "your_actual_master_password"
-allowed_ip = "192.168.1.100"
+allowed_ips = "192.168.1.100"
 vpc_cidr_block = "10.0.0.0/16"
 subnet_a_cidr_block = "10.0.1.0/24"
 subnet_b_cidr_block = "10.0.2.0/24"
@@ -15,3 +15,7 @@ instance_count = 1
 instance_identifier = "benchmark-aurora-postgresql-instance"
 instance_class = "db.t3.medium"
 publicly_accessible = false
+key_pair_name = "benchmark-key-pair"
+ec2_instance_count = 2
+ec2_instance_type = "t2.micro"
+ami_id = "ami-0c94855ba95c71c99"

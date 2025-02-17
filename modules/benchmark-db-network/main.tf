@@ -73,12 +73,24 @@ resource "aws_db_subnet_group" "benchmark_db_subnet_group" {
   }
 }
 
-# 创建用于基准测试数据库的安全组
+# 创建用于基准测试数据库和EC2的安全组
 resource "aws_security_group" "benchmark_db_security_group" {
   vpc_id = aws_vpc.benchmark_vpc.id
   ingress {
     from_port   = 5432
     to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = [for ip in var.allowed_ips : contains(ip, "/") ? ip : "${ip}/32"]
+  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [for ip in var.allowed_ips : contains(ip, "/") ? ip : "${ip}/32"]
+  }
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
     cidr_blocks = [for ip in var.allowed_ips : contains(ip, "/") ? ip : "${ip}/32"]
   }
